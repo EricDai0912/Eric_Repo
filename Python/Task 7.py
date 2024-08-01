@@ -68,14 +68,20 @@ for configuration in keyboard:
         if cursor_loc == loc:
             # append press action after cursor arrive destination
             out_str += "p"
+    # append the current letter movement(out_str) into out_str_list
     out_str_list.append(out_str + "," + str(keyboard.index(configuration)))
+
+# append the belonging congiguration keyboard index at the tail of each operation and seperate with ","
 for result in out_str_list:
     if result.split(",")[0] == "":
+        # pop out the empty opration that didn't match
         out_str_list.pop(out_str_list.index(result))
 
+# check whether the input matches nothing
 if len(out_str_list) != 0:
+    # set the original shortest operation index as 0
     shortest_index = 0
-
+    # find out the shorter operation and record its index in the out_str_list
     for s in out_str_list:
         if len(s) < len(out_str_list[shortest_index]):
             shortest_index = out_str_list.index(s)
