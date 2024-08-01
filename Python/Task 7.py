@@ -24,6 +24,15 @@ keyboard = [keyboard_0,keyboard_1,keyboard_2,keyboard_3]
 in_str = list(input("Enter a string to type: "))
 out_str_list = []
 
+def display_configuration(i):
+    """
+    display the confuguration keyboard with the boarder
+    """
+    print("-" * (len(keyboard[i][0])+4))
+    for line in keyboard[i]:
+        print(f"| {line} |")
+    print("-" * (len(keyboard[i][0])+4))
+
 for configuration in keyboard:
     # use a list to store each letter's position of the user input
     in_str_loc = []
@@ -63,18 +72,17 @@ for configuration in keyboard:
 for result in out_str_list:
     if result.split(",")[0] == "":
         out_str_list.pop(out_str_list.index(result))
-shortest_index = 0
-for s in out_str_list:
-    if len(s) < len(out_str_list[shortest_index]):
-        shortest_index = out_str_list.index(s)
-shortest_conf_index = out_str_list[shortest_index].split(",")[1]
-print("Configuration used:\n")
-print("The robot must perform the following operations:\n" + str(out_str_list[shortest_index].split(",")[0]))
 
+if len(out_str_list) != 0:
+    shortest_index = 0
 
-    # check if user input is correct
-    # if in_status:
-    #     print("The robot must perform the following operations:\n" + out_str)
-    # else:
-    #     print("The string cannot be typed out.")
-    #     break
+    for s in out_str_list:
+        if len(s) < len(out_str_list[shortest_index]):
+            shortest_index = out_str_list.index(s)
+
+    shortest_conf_index = int(out_str_list[shortest_index].split(",")[1])
+    print("Configuration used:")
+    display_configuration(shortest_conf_index)
+    print("The robot must perform the following operations:\n" + str(out_str_list[shortest_index].split(",")[0]))
+else:
+    print("The string cannot be typed out.")
