@@ -19,8 +19,10 @@ keyboard_3 = ["bemix",  \
             "grypt",    \
             "clunk",    \
             "waqfs"]
+
 # put all the configuration into one list
 keyboard = [keyboard_0,keyboard_1,keyboard_2,keyboard_3]
+
 in_str = list(input("Enter a string to type: "))
 out_str_list = []
 
@@ -38,13 +40,14 @@ for configuration in keyboard:
     in_str_loc = []
     # use a string to store the output of robot operation
     out_str = ""
+
     # use for loop to convert user's input into each letter's postion
     for c in in_str:
     # set a variable to store the line index
         for line in configuration:
             if c in line:
                 in_str_loc.append(str(configuration.index(line)) + str(line.index(c)))
-                in_status = True
+    
     # Initialize a cursor and set the position defaultly as 00
     cursor_loc = "00"
     for loc in in_str_loc:
@@ -71,24 +74,28 @@ for configuration in keyboard:
     # append the current letter movement(out_str) into out_str_list with the configuration index split by ","
     out_str_list.append(out_str + "," + str(keyboard.index(configuration)))
 
-# remove the empty operation by pop the element start from the last one
+# remove the empty or not matched operation by pop the element starting from the last one
 for i in range(len(out_str_list)-1,-1,-1):
-    if out_str_list[i].split(",")[0] == "":
+    if out_str_list[i].split(",")[0].count("p") != len(in_str):
         # pop out the empty opration that didn't match
         out_str_list.pop(i)
 
-# check whether the input matches nothing
-if len(out_str_list) != 0:
+# check if there is no keyboard matched(user input is expected among all keyboards)
+if len(out_str_list) > 0:
     # set the original shortest operation index as 0
     shortest_index = 0
-    # find out the shorter operation and record its index in the out_str_list
+    # find out the shorter operation and record its index of the out_str_list
     for s in out_str_list:
         if len(s) < len(out_str_list[shortest_index]):
             shortest_index = out_str_list.index(s)
 
     shortest_conf_index = int(out_str_list[shortest_index].split(",")[1])
+
+    # store the final operation setps in a String
+    final_operation = str(out_str_list[shortest_index].split(",")[0])
+
     print("Configuration used:")
     display_configuration(shortest_conf_index)
-    print("The robot must perform the following operations:\n" + str(out_str_list[shortest_index].split(",")[0]))
+    print("The robot must perform the following operations:\n" + final_operation)
 else:
     print("The string cannot be typed out.")
