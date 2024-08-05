@@ -59,22 +59,23 @@ def calculate_operation(in_str_index, configuration):
     cursor_position = (0,0)
     # use a string to store the robot operation
     operation = ""
+    print(in_str_index)
     for position in in_str_index:
         # if destination position is on the right of the cursor(maybe double digits)
-        if int(position[1]) - int(cursor_position[1]) > 0:
+        if position[1] - cursor_position[1] > 0:
             # store the go right action into the ouput string
-            operation += "r" * (int(position[1]) - int(cursor_position[1]))
+            operation += "r" * (position[1] - cursor_position[1])
             # update the current cursor postion
             cursor_position = (cursor_position[0] , position[1])     
-        elif int(position[1]) - int(cursor_position[1]) < 0:
-            operation += "l" * (int(cursor_position[1]) - int(position[1]))
+        elif position[1] - cursor_position[1] < 0:
+            operation += "l" * (cursor_position[1] - position[1])
             cursor_position = (cursor_position[0] , position[1])
         # if destination position is below the cursor
-        if int(position[0]) - int(cursor_position[0]) > 0:
-            operation += "d" * (int(position[0]) - int(cursor_position[0]))
+        if position[0] - cursor_position[0] > 0:
+            operation += "d" * (position[0] - cursor_position[0])
             cursor_position = (position[0] , cursor_position[1])
-        elif int(position[0]) - int(cursor_position[0]) < 0:
-            operation += "u" * (int(cursor_position[0]) - int(position[0]))
+        elif position[0] - cursor_position[0] < 0:
+            operation += "u" * (cursor_position[0] - position[0])
             cursor_position = (position[0] , cursor_position[1])
         # after moving horizontally and vertically check if cursor arrive the desination
         if cursor_position == position:

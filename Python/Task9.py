@@ -43,7 +43,7 @@ def  plan_the_actions(input_string, configuration):
     for c in input_string:
         for line in configuration:
             if c in line:
-                # append the index into in_str_index if charactor is found
+                # append the index into in_str_index as a tuple if charactor is found
                 in_str_index.append(((configuration.index(line)) , line.index(c)))
                 break
     calculate_operation(in_str_index, configuration)
@@ -55,26 +55,27 @@ def calculate_operation(in_str_index, configuration):
     """
     # use the global final_operation for the change of value
     global final_operation
-    # Initialize a cursor and set the position defaultly as 00
+    # Initialize a cursor and set the position defaultly as (0,0)
     cursor_position = (0,0)
-    # use a string to store the output of robot operation
+    # use a string to store the robot operation
     operation = ""
+    print(in_str_index)
     for position in in_str_index:
         # if destination position is on the right of the cursor(maybe double digits)
-        if int(position[1]) - int(cursor_position[1]) > 0:
+        if position[1] - cursor_position[1] > 0:
             # store the go right action into the ouput string
-            operation += "r" * (int(position[1]) - int(cursor_position[1]))
+            operation += "r" * (position[1] - cursor_position[1])
             # update the current cursor postion
             cursor_position = (cursor_position[0] , position[1])     
-        elif int(position[1]) - int(cursor_position[1]) < 0:
-            operation += "l" * (int(cursor_position[1]) - int(position[1]))
+        elif position[1] - cursor_position[1] < 0:
+            operation += "l" * (cursor_position[1] - position[1])
             cursor_position = (cursor_position[0] , position[1])
         # if destination position is below the cursor
-        if int(position[0]) - int(cursor_position[0]) > 0:
-            operation += "d" * (int(position[0]) - int(cursor_position[0]))
+        if position[0] - cursor_position[0] > 0:
+            operation += "d" * (position[0] - cursor_position[0])
             cursor_position = (position[0] , cursor_position[1])
-        elif int(position[0]) - int(cursor_position[0]) < 0:
-            operation += "u" * (int(cursor_position[0]) - int(position[0]))
+        elif position[0] - cursor_position[0] < 0:
+            operation += "u" * (cursor_position[0] - position[0])
             cursor_position = (position[0] , cursor_position[1])
         # after moving horizontally and vertically check if cursor arrive the desination
         if cursor_position == position:
@@ -82,35 +83,21 @@ def calculate_operation(in_str_index, configuration):
             operation += "p"
     # add the configuration into operation to compare the len for the shortes one
     operation = operation + "," + str(keyboard.index(configuration))
-    print(operation)
     # replace the final_operation if every charactor is found and if operation is shorter or final_operation is empty
     if operation.count("p") == len(in_str) and (len(operation) < len(final_operation) or final_operation == ""):
-        # store the belong configuration into the final_operation split by ","
         final_operation = operation
-        print("final:" + final_operation)
 
 in_str = list(input("Enter a string to type: "))
 
-# store the operation of each configuration into a list
+# store the shortest operation
 final_operation = ""
 
-# convert the index then calculate and store the operation in each configuration
+# convert the index then calculate and store the shortest operation in each configuration
 for configuration in keyboard:
     plan_the_actions(in_str, configuration)
 
 # check if there is no keyboard matched(user input is expected among all keyboards)
 if final_operation != "":
-    # # set the original shortest operation index as 0
-    # shortest_index = 0
-    # # find out the shorter operation and record its index of the operation_list
-    # for s in operation_list:
-    #     if len(s) < len(operation_list[shortest_index]):
-    #         shortest_index = operation_list.index(s)
-
-    # shortest_conf_index = int(operation_list[shortest_index].split(",")[1])
-
-    # # store the final operation setps in a String
-    # final_operation = str(operation_list[shortest_index].split(",")[0])
     print("Configuration used:")
     display_configuration(int(final_operation.split(",")[1]))
     print("The robot must perform the following operations:\n" + final_operation.split(",")[0])
