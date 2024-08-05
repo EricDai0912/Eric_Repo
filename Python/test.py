@@ -1,3 +1,3 @@
-a = "abcd"
-cursor = 0
-position = 3
+s = "1,b"
+a = tuple(s.split(","))
+print(a)

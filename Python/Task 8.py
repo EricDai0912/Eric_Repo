@@ -57,7 +57,7 @@ def calculate_operation(in_str_index, configuration):
     global final_operation
     # Initialize a cursor and set the position defaultly as (0,0)
     cursor_position = (0,0)
-    # use a string to store the output of robot operation
+    # use a string to store the robot operation
     operation = ""
     for position in in_str_index:
         # if destination position is on the right of the cursor(maybe double digits)
@@ -84,31 +84,19 @@ def calculate_operation(in_str_index, configuration):
     operation = operation + "," + str(keyboard.index(configuration))
     # replace the final_operation if every charactor is found and if operation is shorter or final_operation is empty
     if operation.count("p") == len(in_str) and (len(operation) < len(final_operation) or final_operation == ""):
-        # store the belong configuration into the final_operation split by ","
         final_operation = operation
 
 in_str = list(input("Enter a string to type: "))
 
-# store the operation of each configuration into a list
+# store the shortest operation
 final_operation = ""
 
-# convert the index then calculate and store the operation in each configuration
+# convert the index then calculate and store the shortest operation in each configuration
 for configuration in keyboard:
     plan_the_actions(in_str, configuration)
 
 # check if there is no keyboard matched(user input is expected among all keyboards)
 if final_operation != "":
-    # # set the original shortest operation index as 0
-    # shortest_index = 0
-    # # find out the shorter operation and record its index of the operation_list
-    # for s in operation_list:
-    #     if len(s) < len(operation_list[shortest_index]):
-    #         shortest_index = operation_list.index(s)
-
-    # shortest_conf_index = int(operation_list[shortest_index].split(",")[1])
-
-    # # store the final operation setps in a String
-    # final_operation = str(operation_list[shortest_index].split(",")[0])
     print("Configuration used:")
     display_configuration(int(final_operation.split(",")[1]))
     print("The robot must perform the following operations:\n" + final_operation.split(",")[0])
