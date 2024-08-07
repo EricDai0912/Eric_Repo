@@ -59,14 +59,13 @@ def calculate_operation(in_str_index, configuration):
     cursor_position = (0,0)
     # use a string to store the robot operation
     operation = ""
-    print(in_str_index)
     for position in in_str_index:
-        # if destination position is on the right of the cursor(maybe double digits)
+        # if destination position is on the right of the cursor
         if position[1] - cursor_position[1] > 0:
-            # store the go right action into the ouput string
-            operation += "r" * (position[1] - cursor_position[1])
-            # update the current cursor postion
-            cursor_position = (cursor_position[0] , position[1])     
+                right_move = position[1] - cursor_position[1]
+                left_move = len(configuration[0]) - position[1]
+                if left_move < right_move:
+                    
         elif position[1] - cursor_position[1] < 0:
             operation += "l" * (cursor_position[1] - position[1])
             cursor_position = (cursor_position[0] , position[1])
