@@ -1,3 +1,3 @@
-s = "1,b"
-a = tuple(s.split(","))
+a = [0,0]
+a[1] += 1
 print(a)

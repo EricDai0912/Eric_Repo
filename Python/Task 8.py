@@ -59,7 +59,6 @@ def calculate_operation(in_str_index, configuration):
     cursor_position = (0,0)
     # use a string to store the robot operation
     operation = ""
-    print(in_str_index)
     for position in in_str_index:
         # if destination position is on the right of the cursor(maybe double digits)
         if position[1] - cursor_position[1] > 0:
