@@ -1,5 +1,4 @@
 from abc import ABC, abstractclassmethod
-import Stack
 class Car(ABC):
     step = '2'
     def __init__(self, tire = 0, door = 0):
