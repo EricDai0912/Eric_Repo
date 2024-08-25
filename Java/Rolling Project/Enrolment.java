@@ -54,18 +54,47 @@ public class Enrolment {
     public void inputStudentDetails()
     {
         Input in = new Input();
-        student.setName(in.acceptStringInput("Please enter your name"));
-        student.setAddress(in.acceptStringInput("Please enter your address"));
-        student.setPhoneNo(in.acceptStringInput("Please enter your phone number"));
-        student.setEmail(in.acceptStringInput("Please enter your email"));
+        Validation valid = new Validation();
+        String name = in.acceptStringInput("Please enter your name");
+        String address = in.acceptStringInput("Please enter your address");
+        String phoneNo = in.acceptStringInput("Please enter your phone number");
+        String email = in.acceptStringInput("Please enter your email");
+        if (!valid.isBlank(name) && valid.stringLengthInRange(name, 12, 3))
+        {
+            student.setName(name);
+        }
+        if (!valid.isBlank(address) && valid.stringLengthInRange(address, 100, 25))
+        {
+            student.setAddress(address);
+        }
+        if (!valid.isBlank(phoneNo) && valid.stringLengthInRange(phoneNo, 10, 10) && valid.isStringNumeric(phoneNo))
+        {
+            student.setPhoneNo(phoneNo);
+        }
+        if (!valid.isBlank(email))
+        {
+            student.setEmail(email);
+        }
     }
 
     public void inputUnitDetails()
     {
         Input in = new Input();
-        unit.setUnitCode(in.acceptStringInput("Please enter your unit code"));
-        unit.setUnitDescription(in.acceptStringInput("Please enter your unit description"));
-        unit.setCreditPoint(in.acceptIntInput("Please enter your credit points"));
+        Validation valid = new Validation();
+        String unitCode = in.acceptStringInput("Please enter your unit code");
+        String unitDescription = in.acceptStringInput("Please enter your unit description");
+        int creditPoint = in.acceptIntInput("Please enter your credit points");
+        if (valid.stringLengthInRange(unitCode, 7, 7))
+        {
+            unit.setUnitCode(unitCode);
+        }
+        if (valid.stringLengthInRange(unitDescription, 250, 1) && !valid.isBlank(unitDescription))
+        {
+            unit.setUnitDescription(unitDescription);
+        }
+        
+        
+        unit.setCreditPoint(creditPoint);
     }
 
     @Override
@@ -74,8 +103,30 @@ public class Enrolment {
         return "Enrolment [date=" + date + ", student=" + student + ", unit=" + unit + "]";
     }
 
+    public void startProgram()
+    {
+        boolean flag = true;
+        while (flag)
+        {
+            Input in = new Input();
+            int option = in.acceptIntInput("Please enter the option: 1.inputStudentDetails  2.inputUnitDetails  3. Exit");
+            switch(option)
+            {
+                case 1:
+                    inputStudentDetails();
+                    break;
+                case 2:
+                    inputUnitDetails();
+                    break;
+                case 3:
+                    break;
+             }
+        }
+    }
+
     public static void main(String[] args) {
-        
+        Enrolment enrolment = new Enrolment();
+        enrolment.startProgram();
     }
 
 }

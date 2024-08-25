@@ -25,7 +25,7 @@ keyboard = [keyboard_0,keyboard_1,keyboard_2,keyboard_3]
 
 def display_configuration(i):
     """
-    display the confuguration keyboard with the boarder
+    This method is for display the confuguration keyboard with the boarder
     """
     print("-" * (len(keyboard[i][0])+4))
     for line in keyboard[i]:
@@ -34,7 +34,7 @@ def display_configuration(i):
 
 def  plan_the_actions(input_string, configuration):
     """
-    This function is for converting the characters into the index of each configuration
+    This method is for converting the characters into the index of each configuration
     """
 
     # use a list to store each letter's index of the user input
@@ -50,8 +50,7 @@ def  plan_the_actions(input_string, configuration):
 
 def calculate_operation(in_str_index, configuration):
     """
-    This function is for calculate the operations in each configuration based on the indices
-    by simulating a cursor and replace the final_operation if shorter
+    This method is for calculate the operations in each configuration based on the indices by simulating a cursor and replace the final_operation if shorter
     """
     # use the global final_operation for the change of value
     global final_operation
@@ -60,7 +59,7 @@ def calculate_operation(in_str_index, configuration):
     # use a string to store the robot operation
     operation = ""
     for position in in_str_index:
-        # if destination position is on the right of the cursor(maybe double digits)
+        # if destination position is on the right of the cursor
         if position[1] - cursor_position[1] > 0:
             # store the go right action into the ouput string
             operation += "r" * (position[1] - cursor_position[1])
