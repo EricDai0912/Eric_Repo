@@ -55,25 +55,40 @@ public class Enrolment {
     {
         Input in = new Input();
         Validation valid = new Validation();
-        String name = in.acceptStringInput("Please enter your name");
-        String address = in.acceptStringInput("Please enter your address");
-        String phoneNo = in.acceptStringInput("Please enter your phone number");
-        String email = in.acceptStringInput("Please enter your email");
-        if (!valid.isBlank(name) && valid.stringLengthInRange(name, 12, 3))
+        while (true)
         {
-            student.setName(name);
-        }
-        if (!valid.isBlank(address) && valid.stringLengthInRange(address, 100, 25))
-        {
-            student.setAddress(address);
-        }
-        if (!valid.isBlank(phoneNo) && valid.stringLengthInRange(phoneNo, 10, 10) && valid.isStringNumeric(phoneNo))
-        {
-            student.setPhoneNo(phoneNo);
-        }
-        if (!valid.isBlank(email))
-        {
-            student.setEmail(email);
+            String name = in.acceptStringInput("Please enter your name");
+            if (!valid.isBlank(name) && valid.stringLengthInRange(name, 12, 3))
+            {
+                student.setName(name);
+            }else
+            {
+                continue;
+            }
+            String address = in.acceptStringInput("Please enter your address");
+            if (!valid.isBlank(address) && valid.stringLengthInRange(address, 100, 25))
+            {
+                student.setAddress(address);
+            }else
+            {
+                continue;
+            }
+            String phoneNo = in.acceptStringInput("Please enter your phone number");
+            if (!valid.isBlank(phoneNo) && valid.stringLengthInRange(phoneNo, 10, 10) && valid.isStringNumeric(phoneNo))
+            {
+                student.setPhoneNo(phoneNo);
+            }else
+            {
+                continue;
+            }
+            String email = in.acceptStringInput("Please enter your email");
+            if (!valid.isBlank(email))
+            {
+                student.setEmail(email);
+            }else
+            {
+                continue;
+            }
         }
     }
 
