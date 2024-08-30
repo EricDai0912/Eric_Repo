@@ -38,7 +38,6 @@ def format_varable(variable_set):
                     if variable == each_string:
                         line[line.index(variable)] = formated_variable
                 program[program.index(each_line)] = " ".join(line)
-
             variable_set = identify_variable()
             break
         else:
@@ -61,16 +60,13 @@ while True:
 while True:
     print("==================================\nEnter your choice:\n1. Print program.\n2. List.\n3. Format.\n0. Quit.\n==================================")
     choice = input()
-    if choice.isalnum():
-        if choice == "1":
-            print_program()
-        elif choice == "2":
-            list_varables(variable_set)
-        elif choice == "3":
-            variable_set = format_varable(variable_set)
-        elif choice == "0":
-            break
-        else:
-            continue
+    if choice == "1":
+        print_program()
+    elif choice == "2":
+        list_varables(variable_set)
+    elif choice == "3":
+        variable_set = format_varable(variable_set)
+    elif choice == "0":
+        break
     else:
         continue

@@ -26,12 +26,15 @@ while True:
         program.append(line)
 while True:
     print("==================================\nEnter your choice:\n1. Print program.\n2. List.\n0. Quit.\n==================================")
-    choice = input()
-    if choice == "1":
-        print_program()
-    elif choice == "2":
-        list_varables()
-    elif choice == "0":
-        break
-    else:
+    try:
+        choice = int(input())
+        if choice == 1:
+            print_program()
+        elif choice == 2:
+            list_varables()
+        elif choice == 0:
+            break
+        else:
+            raise ValueError
+    except ValueError:
         continue

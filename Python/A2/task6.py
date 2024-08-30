@@ -86,18 +86,15 @@ while True:
 while True:
     print("==================================\nEnter your choice:\n1. Print program.\n2. List.\n3. Format.\n4. Rename.\n0. Quit.\n==================================")
     choice = input()
-    if choice.isalnum():
-        if choice == "1":
-            print_program()
-        elif choice == "2":
-            list_varables(variable_set)
-        elif choice == "3":
-            variable_set = format_varable(variable_set)
-        elif choice == "4":
-            variable_set = rename_variable(variable_set)
-        elif choice == "0":
-            break
-        else:
-            continue
+    if choice == "1":
+        print_program()
+    elif choice == "2":
+        list_varables(variable_set)
+    elif choice == "3":
+        variable_set = format_varable(variable_set)
+    elif choice == "4":
+        variable_set = rename_variable(variable_set)
+    elif choice == "0":
+        break
     else:
         continue
