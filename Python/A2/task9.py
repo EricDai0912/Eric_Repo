@@ -77,6 +77,7 @@ def delete_table():
         try:
             table_index = int(input("Choose a table index (for table deletion):\n"))
             if table_index >= 0 and table_index < len(data_list) and data_list[table_index] != []:
+                trash_table[table_index] = data_list[table_index]
                 data_list[table_index] = []
                 break
             else:
@@ -84,8 +85,45 @@ def delete_table():
         except ValueError:
             print("Incorrect table index. Try again.")
 
+def delete_column():
+    while True:
+        try:
+            table_index = int(input("Choose a table index (for column deletion):\n"))
+            if table_index >= 0 and table_index < len(data_list) and data_list[table_index] != []:
+                col_index = int(input("Enter the index of the column to delete:\n"))
+                if col_index < len(data_list[table_index][0]) and col_index >= 0:
+                    col_deleted_table = []
+                    for each_row in data_list[table_index]:
+                        new_row = []
+                        for index, each_col in enumerate(each_row):
+                            if index != col_index:
+                                new_row.append(each_row[index])
+                        col_deleted_table.append(new_row)
+                    data_list[table_index] = col_deleted_table
+                    break
+                else:
+                    print("Incorrect column index. Try again.")
+            else:
+                raise ValueError
+        except ValueError:
+            print("Incorrect table index. Try again.")
+
+def restore_table():
+    while True:
+        try:
+            table_index = int(input("Choose a table index (for restoration):\n"))
+            if trash_table.get(table_index):
+                data_list[table_index] = trash_table.pop(table_index)
+                break
+            else:
+                raise ValueError
+        except ValueError:
+            print("Incorrect table index. Try again.")
+
+
 file_list = ['grades.csv', 'class_students.csv', 'rabbytes_club_students.csv', 'rabbytes_data.csv']
 data_list = read_data(file_list)
+trash_table = {}
 while True:
     choice = input("==================================\n\
 Enter your choice:\n\
@@ -94,6 +132,8 @@ Enter your choice:\n\
 3. Duplicate table.\n\
 4. Create table.\n\
 5. Delete table.\n\
+6. Delete column.\n\
+7. Restore table.\n\
 0. Quit.\n\
 ==================================\n")
     if choice == "1":
@@ -106,5 +146,9 @@ Enter your choice:\n\
         create_table()
     elif choice == "5":
         delete_table()
+    elif choice == "6":
+        delete_column()
+    elif choice == "7":
+        restore_table()
     elif choice == "0":
         break
